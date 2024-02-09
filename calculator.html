@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <style>
+        body {
+    background-color: #2b0445;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.calculator-container {
+    text-align: center;
+}
+
+.calculator {
+    width: 220px;
+    padding: 10px;
+    border: 2px solid #c38d9e;
+    border-radius: 10px;
+    background-color: #361b2c;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 5px;
+}
+
+.calculator h2 {
+    color: #fff;
+    grid-column: span 4; /* Span all columns for the title */
+}
+
+.calculator input {
+    grid-column: span 4;
+    width: calc(100% - 10px);
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 20px;
+    text-align: right;
+    border: none;
+    background-color: #361b2c;
+    color: #fff;
+}
+
+.calculator button {
+    width: 100%;
+    height: 50px; /* Set a fixed height for the buttons */
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.calculator button.operator {
+    background-color: #6a0572;
+    border: 2px solid #6a0572;
+    color: #fff;
+}
+
+.calculator button.operator:hover {
+    background-color: #a6019e;
+}
+
+.calculator button.equal {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    grid-column: span 2;
+}
+
+.calculator button.equal:hover {
+    background-color: #45a049;
+}
+
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="calculator">
+            <h2>Calculator</h2>
+            <input type="text" id="result" readonly>
+            <button onclick="appendValue(7)">7</button>
+            <button onclick="appendValue(8)">8</button>
+            <button onclick="appendValue(9)">9</button>
+            <button onclick="clearResult()">C</button>
+            <button onclick="appendValue(4)">4</button>
+            <button onclick="appendValue(5)">5</button>
+            <button onclick="appendValue(6)">6</button>
+            <button onclick="appendValue('')"></button>
+            <button onclick="appendValue(1)">1</button>
+            <button onclick="appendValue(2)">2</button>
+            <button onclick="appendValue(3)">3</button>
+            <button onclick="appendValue('/')">/</button>
+            <button onclick="appendValue(0)">0</button>
+            <button onclick="appendValue('-')">-</button>
+            <button onclick="appendValue('+')">+</button>
+            <button onclick="calculate()" class="equal">=</button>
+        </div>
+    </div>
+
+    <script>
+        function appendValue(value) {
+            document.getElementById('result').value += value;
+        }
+
+        function clearResult() {
+            document.getElementById('result').value = '';
+        }
+
+        function calculate() {
+            var result = eval(document.getElementById('result').value);
+            document.getElementById('result').value = result;
+        }
+
+        // Keyboard input
+        document.addEventListener('keydown', function(event) {
+            if (event.key >= 0 && event.key <= 9) {
+                appendValue(event.key);
+            } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
+                appendValue(event.key);
+            } else if (event.key === 'Enter') {
+                calculate();
+            } else if (event.key === 'Backspace') {
+                clearResult();
+            }
+        });
+    </script>
+</body>
+</html>
